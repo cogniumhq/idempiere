@@ -706,7 +706,7 @@ Require-Capability:    osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
 	<location includeSource="true" missingManifest="generate" type="Maven">
 	  <groupId>org.codehaus.jettison</groupId>
       <artifactId>jettison</artifactId>
-      <version>1.5.4</version>
+      <version>1.5.7</version>
 	  <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
@@ -873,19 +873,19 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>jaxen</groupId>
       <artifactId>jaxen</artifactId>
-      <version>2.0.0</version>
+      <version>2.0.6</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.rhino</artifactId>
-      <version>1.7.13_1</version>
+      <version>1.7.15_1</version>
       <type>jar</type>
 	</location>	
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.xerces</artifactId>
-      <version>2.12.1_1</version>
+      <version>2.12.2_1</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
@@ -1079,7 +1079,7 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.eclipse.jetty.toolchain</groupId>
       <artifactId>jetty-servlet-api</artifactId>
-      <version>4.0.6</version>
+      <version>4.0.9</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
@@ -1157,13 +1157,13 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>2.0.12</version>
+      <version>2.0.20</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
-      <version>2.0.12</version>
+      <version>2.0.20</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
@@ -1541,13 +1541,13 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="error" type="Maven">
 		<groupId>org.apache.httpcomponents</groupId>
 	    <artifactId>httpcore-osgi</artifactId>
-	    <version>4.4.14</version>
+	    <version>4.4.16</version>
 		<type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="error" type="Maven">
 	 	<groupId>org.apache.httpcomponents</groupId>
 	    <artifactId>httpclient-osgi</artifactId>
-	    <version>4.5.13</version>
+	    <version>4.5.14</version>
 		<type>jar</type>
 	</location>
 	<!-- for jdbc driver -->
@@ -1564,7 +1564,7 @@ Export-Package:        *;version="${version}";-noimport:=true
     <location includeSource="true" missingManifest="generate" type="Maven">
     	<groupId>com.oracle.database.jdbc</groupId>
 		<artifactId>ojdbc17</artifactId>
-		<version>23.26.0.0.0</version>
+		<version>23.26.4.0.0</version>
 		<type>jar</type>
 	  	<instructions><![CDATA[Bundle-Name:           Bundle derived from maven artifact ${mvnGroupId}:${mvnArtifactId}:${mvnVersion}
 version:               ${version_cleanup;${mvnVersion}}
