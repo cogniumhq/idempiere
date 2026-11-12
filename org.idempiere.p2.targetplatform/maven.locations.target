@@ -177,7 +177,7 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
 	  <groupId>org.antlr</groupId>
 	  <artifactId>antlr4-runtime</artifactId>
-	  <version>4.9.2</version>
+	  <version>4.13.2</version>
       <type>jar</type>
 	</location>
 	<!-- com.github.librepdf -->
@@ -229,7 +229,7 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.jvnet.mimepull</groupId>
       <artifactId>mimepull</artifactId>
-      <version>1.9.14</version>
+      <version>1.11.0</version>
 	  <type>jar</type>
 	</location>	    
     <location includeSource="true" missingManifest="generate" type="Maven">
@@ -260,7 +260,7 @@ Export-Package:        *;-noimport:=true
     <location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.glassfish.external</groupId>
       <artifactId>management-api</artifactId>
-      <version>3.2.3</version>
+      <version>3.3.0</version>
       <type>jar</type>
     </location>
     <location includeSource="true" missingManifest="generate" type="Maven">
@@ -1060,7 +1060,7 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.javassist</groupId>
       <artifactId>javassist</artifactId>
-      <version>3.30.2-GA</version>
+      <version>3.33.0-GA</version>
       <type>jar</type>
 	</location>
 	<!-- org.eclipse.jetty -->
@@ -1397,31 +1397,31 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm</artifactId>
-      <version>9.8</version>
+      <version>9.11.1</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-commons</artifactId>
-      <version>9.8</version>
+      <version>9.11.1</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-tree</artifactId>
-      <version>9.8</version>
+      <version>9.11.1</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-util</artifactId>
-      <version>9.8</version>
+      <version>9.11.1</version>
       <type>jar</type>
 	</location>	
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-analysis</artifactId>
-      <version>9.8</version>
+      <version>9.11.1</version>
       <type>jar</type>
 	</location>	
 	<!-- org.apache.lucene -->
