@@ -571,7 +571,7 @@ Export-Package:        *;version="${version}";-noimport:=true
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.apache.aries.spifly</groupId>
       <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
-      <version>1.3.7</version>
+      <version>1.3.8</version>
       <type>jar</type>
 	</location>
 	<location includeSource="true" missingManifest="generate" type="Maven">
