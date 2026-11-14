@@ -9,8 +9,8 @@
     "run": null
   },
   "hooks": {
-    "security": null,
-    "sbom-licence": null,
+    "security": { "run": "node scripts/readiness-security.mjs" },
+    "sbom-licence": { "run": "node scripts/readiness-sbom-licence.mjs" },
     "customer": []
   },
   "waivers": ".loop/waivers.json",
