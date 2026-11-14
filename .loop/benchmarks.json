@@ -1,0 +1,13 @@
+{
+  "about": "Benchmark goals for the release-readiness review (release-readiness skill 0.4.3, SKILL.md §2b; fork-local, never upstream). Each goal's command prints \"release-readiness:figure <metric> <value>\" and the review shows it against the goal as goal:<suite>. The one goal is mode warn: below it, or no figure, is listed under Warnings and does not change the verdict. Its command abstains (exit 3) until a Loop job sets up the GardenWorld database (axon-overlay images/build-test/jdk-tycho/environment.md, cmd-fixture-db) and a script runs the default suite and prints the count; that script replaces the command in a reviewed PR. A goal moves to block only with a number of record for its metric in .loop/figures-of-record.json, in a PR approved by someone other than its author.",
+  "goals": [
+    {
+      "suite": "gardenworld/default",
+      "metric": "tests_passed",
+      "goal": 1566,
+      "comparison": ">=",
+      "run": "echo 'goal:gardenworld/default: no figure; the GardenWorld default suite needs the jdk-tycho fixture database, which no Loop job sets up yet' >&2; exit 3",
+      "mode": "warn"
+    }
+  ]
+}

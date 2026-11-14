@@ -1,0 +1,19 @@
+{
+  "required": ["ci"],
+  "ci": [
+    { "id": "verify", "run": "mvn -B -ntp -DmaterializeProduct=none -DassembleRepository=none -DskipTests verify" }
+  ],
+  "benchmark": {
+    "record": ".loop/figures-of-record.json",
+    "candidate": ".loop/candidate-results.json",
+    "run": null
+  },
+  "hooks": {
+    "security": null,
+    "sbom-licence": null,
+    "customer": []
+  },
+  "waivers": ".loop/waivers.json",
+  "agents": [],
+  "timeoutSeconds": 1500
+}
