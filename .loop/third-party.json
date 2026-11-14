@@ -1,0 +1,1002 @@
+{
+  "schema": "third-party/v0",
+  "about": "Paths in this fork of iDempiere core that iDempiere did not write by hand: libraries and assets it vendors, source it copied from other projects, third-party binaries and build scripts, and generated code. Upstream iDempiere's own code is the subject of this fork and is not listed. Default policy for every entry: never tested, checked or fixed by the Loop; findings are reported only if the owner opts in. 'match': 'file' is an exact path; 'prefix' is a path prefix (the same rule as a Loop start request's scope.exclude); 'glob' follows .gitattributes pattern rules. modified_locally: true = edited here (evidence in notes), false = not edited by hand, null = not compared with upstream. Human-readable copy: THIRD_PARTY.md; the root .gitattributes marks the same paths linguist-vendored (generated ones also linguist-generated). Fork-local (cogniumhq/idempiere): never sent upstream.",
+  "default_policy": {
+    "test": false,
+    "fix": false,
+    "report": "opt-in"
+  },
+  "entries": [
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/pdf.js/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "PDF.js (Mozilla), prebuilt viewer: build/ and web/ with its cmaps, standard fonts, locales and images",
+      "version": "4.0.379 (pdfjsVersion in build/pdf.mjs)",
+      "licence": "Apache-2.0 (LICENSE in the directory); web/cmaps/LICENSE, web/standard_fonts/LICENSE_FOXIT and LICENSE_LIBERATION for those parts",
+      "modified_locally": null,
+      "reason": "Mozilla's prebuilt PDF.js: Mozilla Apache 2.0 headers on its sources and its own LICENSE files in the directory.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/html2canvaspro/html2canvaspro*.js",
+      "match": "glob",
+      "kind": "vendored",
+      "origin": "html2canvas-pro (yorickshan), minified (html2canvaspro.js) and source (html2canvaspro.src.js) builds",
+      "version": "1.5.8 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": null,
+      "reason": "html2canvas-pro 1.5.8 banner on both builds; zk.wpd beside them is iDempiere's ZK package file.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/jquery/maskedinput/jquery.maskedinput.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "jQuery Masked Input Plugin (Josh Bush, digitalbush.com)",
+      "version": "1.4.1 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": true,
+      "reason": "jQuery Masked Input Plugin 1.4.1 banner (Josh Bush, MIT).",
+      "notes": "Edited here: iDempiere's VFormat mask characters were added to $.mask.definitions (commented 'iDempiere VFormat').",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/photobooth/photobooth_min.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Photobooth.js, minified build",
+      "version": "0.7-rsd3 (banner, built 14 Aug 2019)",
+      "licence": "not stated in the file",
+      "modified_locally": null,
+      "reason": "Photobooth.js 0.7-rsd3 banner on a minified third-party build; zk.wpd beside it is iDempiere's.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/chosenbox/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "Chosenbox ZK component (Potix Corporation), client half: widget, mold, CSS and zk.wpd in ZK's component layout",
+      "version": "unknown",
+      "licence": "LGPL-3.0 (headers of Chosenbox.js and mold/chosenbox.js)",
+      "modified_locally": null,
+      "reason": "Potix copyright and LGPL 3.0 headers (2011, benbai) on the component's widget and mold.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/org/zkoss/addon/chosenbox/Chosenbox.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Chosenbox ZK component (Potix Corporation), server half",
+      "version": "unknown",
+      "licence": "LGPL-3.0 (header)",
+      "modified_locally": null,
+      "reason": "Potix copyright and LGPL 3.0 header; package-info.java in the same package is iDempiere's.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/org/zkoss/addon/chosenbox/Version.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Chosenbox ZK component (Potix Corporation), server half",
+      "version": "unknown",
+      "licence": "LGPL-3.0 (header)",
+      "modified_locally": null,
+      "reason": "Potix copyright and LGPL 3.0 header.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/zkforge/keylistener/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "ZK Forge Keylistener component (Easit AB), client half: widget, mold and zk.wpd",
+      "version": "unknown",
+      "licence": "GPL-2.0 (KeyListener.js header)",
+      "modified_locally": null,
+      "reason": "'Copyright 2007 by Easit AB' GPL 2.0 header on KeyListener.js.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/org/zkforge/keylistener/Keylistener.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "ZK Forge Keylistener component (Easit AB), server half",
+      "version": "unknown",
+      "licence": "GPL-2.0 (the component's; the file now carries iDempiere's GPL 2 header)",
+      "modified_locally": true,
+      "reason": "org.zkforge package, @author boha: the Easit component's server class under a replaced header.",
+      "notes": "Edited here: the original header was replaced by iDempiere's 'Copyright (C) Contributors' header.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/org/zkforge/keylistener/Version.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "ZK Forge Keylistener component (Easit AB), server half",
+      "version": "unknown",
+      "licence": "GPL-2.0 (the component's; the file now carries iDempiere's GPL 2 header)",
+      "modified_locally": true,
+      "reason": "org.zkforge package, @author Bobo Häggström (the component's author); package-info.java beside it is iDempiere's.",
+      "notes": "Edited here: the original header was replaced by iDempiere's 'Copyright (C) Contributors' header.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/web/js/jawwa/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "jawwa ZK Atmosphere server push (Joonas Javanainen), client half: serverpush.js and zk.wpd",
+      "version": "unknown",
+      "licence": "Apache-2.0 (stated in the Java half; the JavaScript has no header)",
+      "modified_locally": null,
+      "reason": "Client half of fi.jawsy.jawwa.zk.atmosphere, whose Java files carry Joonas Javanainen's Apache 2.0 header.",
+      "notes": "Not compared with upstream; the file uses let declarations, so it was probably edited after import.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/fi/jawsy/jawwa/zk/atmosphere/AtmosphereServerPush.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "jawwa ZK Atmosphere server push (Joonas Javanainen), server half",
+      "version": "unknown",
+      "licence": "Apache-2.0 (header)",
+      "modified_locally": null,
+      "reason": "Joonas Javanainen's Apache 2.0 header (2012); Either.java in the same package is iDempiere's (hengsin).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/fi/jawsy/jawwa/zk/atmosphere/ZkAtmosphereHandler.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "jawwa ZK Atmosphere server push (Joonas Javanainen), server half",
+      "version": "unknown",
+      "licence": "Apache-2.0 (header)",
+      "modified_locally": null,
+      "reason": "Joonas Javanainen's Apache 2.0 header (2012).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/name/fraser/neil/plaintext/diff_match_patch.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "diff-match-patch (Google), Java implementation",
+      "version": "unknown (header: Copyright 2018 The diff-match-patch Authors)",
+      "licence": "Apache-2.0 (header)",
+      "modified_locally": null,
+      "reason": "diff-match-patch header (github.com/google/diff-match-patch, Apache 2.0) in Neil Fraser's package.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/xsd/zul.xsd",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "ZK (Potix Corporation) ZUL schema",
+      "version": "unknown",
+      "licence": "not stated in the file",
+      "modified_locally": null,
+      "reason": "ZK's ZUL language schema (targetNamespace http://www.zkoss.org/2005/zul), shipped for editors.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/html/Credits_files/bootstrap.min.css",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Bootstrap (The Bootstrap Authors, Twitter), compiled CSS for the Credits page",
+      "version": "4.3.1 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": null,
+      "reason": "Bootstrap 4.3.1 banner (MIT).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/billboard.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "billboard.js (NAVER Corp.), minified build renamed billboard.js (org.idempiere.zk.billboard/README.md step 2)",
+      "version": "3.10.3 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": null,
+      "reason": "billboard.js 3.10.3 banner (NAVER, MIT); the billboard.<type>.js renderers beside it are iDempiere's.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/billboard.src.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "billboard.js (NAVER Corp.), source build renamed billboard.src.js (org.idempiere.zk.billboard/README.md step 2)",
+      "version": "3.10.3 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": null,
+      "reason": "billboard.js 3.10.3 banner (NAVER, MIT).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/d3.v6.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "D3 (Mike Bostock), minified build renamed d3.v6.js (org.idempiere.zk.billboard/README.md step 3)",
+      "version": "6.7.0 (banner)",
+      "licence": "not stated in the file (banner: Copyright 2021 Mike Bostock)",
+      "modified_locally": null,
+      "reason": "D3 v6.7.0 banner from d3js.org.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/d3.v6.src.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "D3 (Mike Bostock), source build renamed d3.v6.src.js (org.idempiere.zk.billboard/README.md step 3)",
+      "version": "6.7.0 (banner; var version)",
+      "licence": "not stated in the file (banner: Copyright 2021 Mike Bostock)",
+      "modified_locally": null,
+      "reason": "D3 v6.7.0 banner from d3js.org.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.billboard/src/web/js/zul/billboard/css/billboard.css",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "billboard.js (NAVER Corp.) stylesheet",
+      "version": "3.10.3 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": true,
+      "reason": "billboard.js 3.10.3 banner (NAVER, MIT).",
+      "notes": "Edited here, as org.idempiere.zk.billboard/README.md step 4 records: !important on .bb-tooltip padding and text-align, gauge title font-size 2.7em to 1.5em.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.datatable/src/web/js/datatables/datatables.*",
+      "match": "glob",
+      "kind": "vendored",
+      "origin": "DataTables download-builder bundle: jQuery 3.7.0, DataTables 2.0.8, Buttons 3.0.2, Column visibility 3.0.2, ColReorder 2.0.3, DateTime 1.5.2, FixedColumns 5.0.1, Responsive 3.0.2, RowGroup 1.5.0 (datatables.js, .min.js, .css, .min.css)",
+      "version": "DataTables 2.0.8 (banner)",
+      "licence": "MIT (banners: datatables.net/license, jquery.org/license)",
+      "modified_locally": null,
+      "reason": "DataTables download-builder banner listing the bundled libraries; customization.css beside it is iDempiere's.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.datatable/src/web/js/datatables/i18n/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "DataTables language files, one per locale (91 JSON files)",
+      "version": "unknown",
+      "licence": "not stated in the files",
+      "modified_locally": null,
+      "reason": "DataTables language objects (keys autoFill, buttons, …) loaded through DataTableOptions.geti18nURL; none is iDempiere text.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.datatable/src/web/js/datatables/images/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "DataTables sort icons (sort_asc, sort_desc, sort_both and the disabled variants)",
+      "version": "unknown",
+      "licence": "not stated in the files",
+      "modified_locally": null,
+      "reason": "The DataTables distribution's sort icons, under their distribution names.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.zk.pivot/src/web/js/pivot/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "PivotTable.js (Nicolas Kruchten): pivot.js, pivot.css, c3_renderers.js (+ .map), show_code.js",
+      "version": "unknown",
+      "licence": "not stated in the files",
+      "modified_locally": null,
+      "reason": "PivotTable.js build: $.pivotUtilities and pvtTable classes, CoffeeScript output whose map names c3_renderers.coffee.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.server/resources/bootstrap/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "Bootstrap (The Bootstrap Authors): bootstrap.bundle.min.js and bootstrap.min.css for the server monitor",
+      "version": "5.3.8 (banner)",
+      "licence": "MIT (banner)",
+      "modified_locally": null,
+      "reason": "Bootstrap 5.3.8 banners (MIT).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.server/resources/jquery/jquery.js",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "jQuery (jquery.com), minified, for the server monitor",
+      "version": "1.6.4 (banner)",
+      "licence": "per the banner: jquery.org/license",
+      "modified_locally": null,
+      "reason": "jQuery v1.6.4 banner.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.apache.ecs/src/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "Apache Jakarta ECS (Element Construction Set), imported into Compiere and kept as the org.apache.ecs bundle",
+      "version": "unknown",
+      "licence": "the files carry Compiere's GPL 2 header (headers replaced in Compiere's CVS, $Id … jjanke 2006); ECS itself is Apache Software Foundation code",
+      "modified_locally": true,
+      "reason": "The org.apache.ecs package with the ECS developers' @author tags (Stephan Nagy, Jon S. Stevens) in 117 of its 131 files.",
+      "notes": "The bundle's pom.xml, META-INF/MANIFEST.MF and build files are iDempiere's build and stay first-party; Activator.java (an OSGi activator, iDempiere's) sits inside the prefix and is listed with it.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/krysalis/",
+      "match": "prefix",
+      "kind": "vendored",
+      "origin": "Barcode4J QR code support (Jeremias Maerki): org.krysalis.barcode4j.impl.qr and tools.ECIUtil",
+      "version": "unknown",
+      "licence": "Apache-2.0 (headers)",
+      "modified_locally": null,
+      "reason": "Jeremias Maerki's Apache 2.0 headers (2012) on all six files of the org.krysalis.barcode4j package.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.keikai/src/io/keikai/ui/au/in/TextHeightCommand.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Keikai spreadsheet (Potix Corporation), one class copied into iDempiere's Keikai bundle",
+      "version": "unknown",
+      "licence": "LGPL-2.1 (header)",
+      "modified_locally": true,
+      "reason": "Potix copyright and LGPL 2.1 header in the io.keikai package.",
+      "notes": "Adapted: its header still names CellFetchCommand.java, the class it was made from.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.ui.zk/WEB-INF/src/org/adempiere/webui/util/ReaderInputStream.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Apache Ant (org.apache.tools.ant.util.ReaderInputStream)",
+      "version": "unknown",
+      "licence": "Apache-2.0 (ASF header)",
+      "modified_locally": true,
+      "reason": "ASF Apache 2.0 header and 'Adapted from org.apache.tools.ant.util.ReaderInputStream'.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/Activator.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/BridgeFilter.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2010 Angelo Zerr and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/BridgeServlet.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2008 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/DefaultHttpContext.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/FilterConfigImpl.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2010 IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpServiceImpl.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2010 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpServletRequestAdaptor.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpSessionAdaptor.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ProxyContext.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ProxyServlet.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/Registration.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/RequestDispatcherAdaptor.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ResourceServlet.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005-2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletConfigImpl.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletContextAdaptor.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005, 2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletRegistration.java",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge (org.eclipse.equinox.http.servlet), repackaged as org.adempiere.eclipse.equinox.http.servlet",
+      "version": "unknown",
+      "licence": "EPL-1.0 (header)",
+      "modified_locally": true,
+      "reason": "EPL 1.0 header, Copyright (c) 2005-2007 Cognos Incorporated, IBM Corporation and others.",
+      "notes": "Edited here at least by the package rename. FilterChainImpl, FilterRegistration, HttpServiceProxy and HttpServiceProxyFactory in the same package are iDempiere's and stay first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.eclipse.equinox.http.servlet/about.html",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Eclipse Equinox HTTP servlet bridge: the Eclipse Foundation's content notice",
+      "version": "January 30, 2007 (dated)",
+      "licence": "EPL-1.0",
+      "modified_locally": null,
+      "reason": "The Eclipse Foundation's 'About This Content' notice for the bridge's EPL code.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "mvnw",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Apache Maven Wrapper startup script (Unix)",
+      "version": "3.3.2 (script header)",
+      "licence": "Apache-2.0 (ASF header)",
+      "modified_locally": null,
+      "reason": "Apache Maven Wrapper 3.3.2 script with the ASF header, as mvn wrapper:wrapper writes it.",
+      "notes": ".mvn/wrapper/maven-wrapper.properties (which Maven the wrapper fetches) is the repository's setting and stays first-party.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "mvnw.cmd",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Apache Maven Wrapper startup script (Windows)",
+      "version": "3.3.2 (script header)",
+      "licence": "Apache-2.0 (ASF header)",
+      "modified_locally": null,
+      "reason": "Apache Maven Wrapper 3.3.2 script with the ASF header, as mvn wrapper:wrapper writes it.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.server-feature/utils.windows/windows/idempiereService.exe",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "ObjectWeb JavaService (Multiplan Consultants Ltd), Windows service binary renamed idempiereService.exe",
+      "version": "2.0.10 (FileVersion resource)",
+      "licence": "LGPL-2.1 (license.txt beside it; earlier BSD-style licence of Alexandria Software Consulting also reproduced there)",
+      "modified_locally": null,
+      "reason": "Third-party Windows executable: version resources name ObjectWeb JavaService 2.0.10, Multiplan Consultants Limited.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.server-feature/utils.windows/windows/license.txt",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "ObjectWeb JavaService licence text",
+      "version": "unknown",
+      "licence": "LGPL-2.1 and BSD-style (the text itself)",
+      "modified_locally": null,
+      "reason": "JavaService's own licence text (Multiplan Consultants Ltd, Alexandria Software Consulting) for idempiereService.exe.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper.library/META-INF/spring.handlers",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Spring namespace-handler registrations from the jars this bundle embeds (spring-beans and others), merged",
+      "version": "unknown",
+      "licence": "Apache-2.0 (ASF header)",
+      "modified_locally": true,
+      "reason": "ASF header and '# from <jar>' sections: META-INF entries concatenated from the embedded jars.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper.library/META-INF/spring.schemas",
+      "match": "file",
+      "kind": "vendored",
+      "origin": "Spring schema registrations from the jars this bundle embeds (spring-beans via org.apache.servicemix.bundles.spring-beans and others), merged",
+      "version": "unknown",
+      "licence": "not stated in the file (Spring Framework: Apache-2.0)",
+      "modified_locally": true,
+      "reason": "'# from org.apache.servicemix.bundles.spring-beans' sections: META-INF entries concatenated from the embedded jars.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/compiere/model/X_*.java",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "iDempiere's model generator (ModelClassGenerator / ModelInterfaceGenerator, RUN_ModelGenerator.sh) from the Application Dictionary",
+      "version": "regenerated with each dictionary change",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "Every X_ class carries 'Generated Model - DO NOT CHANGE'.",
+      "notes": "Tool output, not third-party authorship: listed so that nothing patches it by hand. A change goes to the Application Dictionary (made by the developer, AGENTS.md rule 3) and the class is regenerated.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/compiere/model/I_*_*.java",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "iDempiere's model generator (ModelClassGenerator / ModelInterfaceGenerator, RUN_ModelGenerator.sh) from the Application Dictionary",
+      "version": "regenerated with each dictionary change",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "Every matched I_ interface carries 'Generated Interface for <table>'.",
+      "notes": "Tool output, not third-party authorship: listed so that nothing patches it by hand. A change goes to the Application Dictionary (made by the developer, AGENTS.md rule 3) and the class is regenerated. The pattern needs a second underscore so that I_Persistent.java (hand-written, no banner) is not matched.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/compiere/model/I_Test*.java",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "iDempiere's model generator (ModelClassGenerator / ModelInterfaceGenerator, RUN_ModelGenerator.sh) from the Application Dictionary",
+      "version": "regenerated with each dictionary change",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "I_Test, I_TestUU and I_TestUUDet carry 'Generated Interface for' (their table names have no underscore).",
+      "notes": "Tool output, not third-party authorship: listed so that nothing patches it by hand. A change goes to the Application Dictionary (made by the developer, AGENTS.md rule 3) and the class is regenerated.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/eevolution/model/[IX]_*.java",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "iDempiere's model generator (ModelClassGenerator / ModelInterfaceGenerator, RUN_ModelGenerator.sh) from the Application Dictionary",
+      "version": "regenerated with each dictionary change",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "Every I_ and X_ file here carries the generator's banner.",
+      "notes": "Tool output, not third-party authorship: listed so that nothing patches it by hand. A change goes to the Application Dictionary (made by the developer, AGENTS.md rule 3) and the class is regenerated.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.idempiere.acct/src/org/idempiere/acct/base/model/[IX]_*.java",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "iDempiere's model generator (ModelClassGenerator / ModelInterfaceGenerator, RUN_ModelGenerator.sh) from the Application Dictionary",
+      "version": "regenerated with each dictionary change",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "Every I_ and X_ file here carries the generator's banner.",
+      "notes": "Tool output, not third-party authorship: listed so that nothing patches it by hand. A change goes to the Application Dictionary (made by the developer, AGENTS.md rule 3) and the class is regenerated.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.base/src/org/idempiere/expression/logic/SimpleBoolean*",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "ANTLR 4.9.3 output (lexer, parser, visitors, .interp, .tokens) from org.adempiere.base/antlr/SimpleBoolean.g4",
+      "version": "ANTLR 4.9.3",
+      "licence": "GPL-2.0 (iDempiere's grammar; ANTLR output)",
+      "modified_locally": false,
+      "reason": "'Generated from SimpleBoolean.g4 by ANTLR 4.9.3'; org.adempiere.base/antlr/README.MD gives the command.",
+      "notes": "The grammar SimpleBoolean.g4 stays first-party; a change goes there and the files are regenerated. EvaluationVisitor, LogicEvaluator and ThrowingErrorListener beside them are hand-written.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper/doc/**/*.html",
+      "match": "glob",
+      "kind": "generated",
+      "origin": "javadoc output for the Jasper report bundle (generated 5 Apr 2005)",
+      "version": "javadoc, 2005",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "'Generated by javadoc on Tue Apr 05 10:49:49 CEST 2005' (78 pages).",
+      "notes": "The two hand-written manuals beside it (Compiere with JasperReports .doc and .pdf) are not listed.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper/doc/package-list",
+      "match": "file",
+      "kind": "generated",
+      "origin": "javadoc output for the Jasper report bundle (generated 5 Apr 2005)",
+      "version": "javadoc, 2005",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "javadoc's package list for the pages above.",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper/doc/stylesheet.css",
+      "match": "file",
+      "kind": "generated",
+      "origin": "javadoc output for the Jasper report bundle (generated 5 Apr 2005)",
+      "version": "javadoc, 2005",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "javadoc's default stylesheet ('Javadoc style sheet').",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    },
+    {
+      "path": "org.adempiere.report.jasper/doc/resources/",
+      "match": "prefix",
+      "kind": "generated",
+      "origin": "javadoc output for the Jasper report bundle (generated 5 Apr 2005)",
+      "version": "javadoc, 2005",
+      "licence": "GPL-2.0 (iDempiere's)",
+      "modified_locally": false,
+      "reason": "javadoc's resources folder (inherit.gif).",
+      "policy": {
+        "test": false,
+        "fix": false,
+        "report": "opt-in"
+      }
+    }
+  ]
+}
