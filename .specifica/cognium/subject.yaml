@@ -1,3 +1,39 @@
 subject: github.com/cogniumhq/idempiere
+role: product
 adopted:
   - { instrument: osv@1, owner: "the fork's owner", date: 2026-11-02 }
+
+# --- OSGi bundles built with Tycho (check set tech/osgi-tycho 0.1, static half) --------------------
+# The static checks read the bundle contract from the files themselves (MANIFEST.MF, OSGI-INF/*.xml,
+# build.properties, feature.xml, plugin.xml, .target). They read two lists from this declaration.
+# Both stay commented out until the owner decides them; with them absent the checks behave as with
+# empty lists.
+#
+# Packages exported by more than one bundle that this project intends. A change that adds a new split
+# goes to a person; a split listed here is exempt. Counted at upstream commit bd4f848 (8 packages); they
+# work at runtime through Require-Bundle and fragments. TODO(owner): confirm each is intended, recount at
+# the fork's pin, then uncomment.
+# split-packages:
+#   - org.compiere.model          # org.adempiere.base, org.adempiere.base.callout
+#   - org.adempiere.process       # org.adempiere.base, org.adempiere.base.process
+#   - org.compiere.process        # org.adempiere.base, org.adempiere.base.process
+#   - org.idempiere.process       # org.adempiere.base, org.adempiere.base.process
+#   - org.compiere.dbPort         # org.adempiere.base, org.compiere.db.postgresql.provider
+#   - org.compiere.install        # org.adempiere.base, org.adempiere.install, org.adempiere.ui
+#   - org.compiere.print          # org.adempiere.base, org.adempiere.ui
+#   - metainfo.zk                 # org.adempiere.ui.zk and its 3 fragments
+#
+# Implementation classes generated at build time (globs over the class name), so a component that names
+# one is not reported as missing its source. TODO(owner): none is known. The component XML is committed
+# (written from @Component annotations in the IDE; the build's DS generation is skipped). Uncomment with []
+# once confirmed, or list them.
+# generated-classes: []
+#
+# Not declared yet, on purpose:
+# - packs: TODO(owner): add `packs: [tech/osgi-tycho@^0.1]` once that check set is published; until then a
+#   plan over this subject cannot resolve it.
+# - build: TODO(owner): `./mvnw verify -DskipTests` (Tycho, as AGENTS.md says; the p2 target platform mirrored). A declared build
+#   is only run inside the build sandbox; declaring it now would stop the static checks that run on the
+#   source tree today.
+# - The components expected unsatisfied when the product starts without its database (the PostgreSQL
+#   GardenWorld seed): TODO(owner), needed only when the product is started headless.
