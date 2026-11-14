@@ -8,27 +8,33 @@
 //
 // What is matched: every group:artifact:version that scripts/readiness-java-deps.mjs reads from
 // the repository (the Tycho target platform's Maven locations and the bundles' <artifactItem>
-// jars; the same 225 target-platform artifacts as context
-// research/idempiere-2026-11-01/baseline/b2-advisories.md). p2 installable units are not Maven
-// coordinates, so they are counted and not matched; the line says so.
+// jars). A row whose version is not resolved is skipped and named (the sbom-licence hook fails on
+// it). p2 installable units are not Maven coordinates, so they are counted and not matched; the
+// output says so.
 //
-// The snapshot: OSV_MAVEN_DIR, a directory of OSV records (one JSON record per file, or a JSON
-// array of records; subdirectories are read too), e.g. OSV's Maven/all.zip unzipped, or the
-// Maven snapshot placed by digest (techspec tracks/execution/records/
-// osv-snapshots-maven-pypi-2026-11-07.md). The review has no network, so nothing is fetched; the
-// hook prints the snapshot's record count, newest `modified` date and a sha256 over its files, so
-// the verdict names the data it judged with. OSV_MAVEN_SHA256, when set, must equal that sha256.
+// The snapshot: OSV_MAVEN_DIR, a directory of OSV records as `unzip Maven/all.zip` leaves it: one
+// JSON record per `*.json` file at the top of the directory (subdirectories are not read; other
+// files, such as a PROVENANCE file, are not part of it). The review has no network, so nothing is
+// fetched. The snapshot's identity is the usual one for offline OSV snapshots:
+//   sha256:<hex of sha256 over the lines "<file name>\0<sha256 of the file>\n">, file names sorted
+// so the digest it was placed by can be checked. The hook prints it with the record count and the
+// newest `modified` date; OSV_MAVEN_SHA256 (with or without "sha256:"), when set, must equal it.
 //
 // A version is affected when it is listed in an affected entry's `versions`, or falls in one of its
 // ECOSYSTEM or SEMVER ranges (introduced / fixed / last_affected), in Maven's version order.
-// Withdrawn records are skipped. Severity is the record's database_specific.severity (GHSA:
-// CRITICAL, HIGH, MODERATE, LOW); a record without one counts as high, as the census pass does.
+// Withdrawn records are skipped. Severity is the record's database_specific.severity (GitHub
+// advisories: CRITICAL, HIGH, MODERATE, LOW); a record without one counts as high (fail closed).
+//
+// Output: the artifacts with advisories, those below the level first and the worst last, then one
+// line naming the failing artifacts worst first, so the verdict's evidence keeps the worst ones.
 //
 // Exit codes (the release-readiness hook contract): 0 pass, 1 fail, 3 abstain, 2 usage.
 //   pass     nothing at the level (SECURITY_LEVEL, default high) or above
 //   fail     an artifact has an advisory at the level or above (each is listed), or the
-//            snapshot's sha256 is not OSV_MAVEN_SHA256
-//   abstain  OSV_MAVEN_DIR is not set, is not a directory, or holds no Maven record
+//            snapshot's digest is not OSV_MAVEN_SHA256
+//   abstain  OSV_MAVEN_DIR is not set, is not a directory, cannot be read (a `*.json` entry
+//            that is not a regular file), or holds no Maven record
+//   usage    SECURITY_LEVEL or OSV_MAVEN_SHA256 is malformed
 //
 // Whenever it matched, the hook prints three figures (no row of record is set; a person may add
 // one in a reviewed PR so the count cannot rise):
@@ -36,8 +42,8 @@
 //   release-readiness:figure advisory_high <n>          … is high
 //   release-readiness:figure vulnerable_artifacts <n>   artifacts with any advisory
 import { createHash } from "node:crypto";
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, relative, resolve, sep } from "node:path";
+import { lstatSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { compareMaven, inventory, say } from "./readiness-java-deps.mjs";
 
@@ -45,36 +51,40 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const ORDER = ["low", "moderate", "high", "critical"];
 const SEVERITY_ALIASES = { medium: "moderate" };
 
-/** OSV records under dir (sorted by path), with a sha256 over paths and contents. */
+/** The `*.json` record files of a snapshot directory, sorted (no subdirectories). */
+export function recordFiles(dir) {
+  return readdirSync(dir)
+    .filter((n) => n.endsWith(".json"))
+    .sort();
+}
+
+/**
+ * OSV records of a snapshot directory, and its identity:
+ * sha256:<hex> over the sorted "<name>\0<sha256 of file>\n" lines of its `*.json` files.
+ * Throws when a `*.json` entry is not a regular file.
+ */
 export function readSnapshot(dir) {
-  const files = [];
-  const walk = (d) => {
-    for (const e of readdirSync(d, { withFileTypes: true })) {
-      const p = join(d, e.name);
-      if (e.isDirectory()) walk(p);
-      else if (e.isFile() && e.name.endsWith(".json")) files.push(p);
-    }
-  };
-  walk(dir);
-  files.sort();
-  const h = createHash("sha256");
+  const names = recordFiles(dir);
+  const lines = [];
   const records = [];
   let unreadable = 0;
-  for (const f of files) {
-    const bytes = readFileSync(f);
-    h.update(`${relative(dir, f).split(sep).join("/")}\n`);
-    h.update(createHash("sha256").update(bytes).digest("hex"));
-    h.update("\n");
-    let j;
+  for (const n of names) {
+    const p = join(dir, n);
+    if (!lstatSync(p).isFile()) throw new Error(`${n} is not a regular file`);
+    const bytes = readFileSync(p);
+    lines.push(`${n}\0${createHash("sha256").update(bytes).digest("hex")}\n`);
+    let r;
     try {
-      j = JSON.parse(bytes.toString("utf8"));
+      r = JSON.parse(bytes.toString("utf8"));
     } catch {
       unreadable++;
       continue;
     }
-    for (const r of Array.isArray(j) ? j : [j]) if (r && typeof r === "object" && r.id) records.push(r);
+    if (r && typeof r === "object" && typeof r.id === "string") records.push(r);
+    else unreadable++;
   }
-  return { records, files: files.length, unreadable, sha256: h.digest("hex") };
+  const digest = `sha256:${createHash("sha256").update(lines.join("")).digest("hex")}`;
+  return { records, files: names.length, unreadable, digest };
 }
 
 function severityOf(rec) {
@@ -160,16 +170,31 @@ export function run({ root = ROOT, env = process.env } = {}) {
     say(`readiness-security: OSV_MAVEN_DIR ${dir} is not a readable directory (${e.message}); nothing judged`);
     return 3;
   }
-  const snap = readSnapshot(dir);
+  let snap;
+  try {
+    snap = readSnapshot(dir);
+  } catch (e) {
+    say(`readiness-security: the snapshot in ${dir} cannot be read (${e.message}); nothing judged`);
+    return 3;
+  }
   const { idx, maven } = indexMaven(snap.records);
   const newest = snap.records.map((r) => String(r.modified || "")).sort().pop() || "unknown";
   say(
-    `readiness-security: snapshot ${snap.files} files, ${maven} Maven records` +
-      `${snap.unreadable ? `, ${snap.unreadable} unreadable` : ""}, newest modified ${newest}, sha256 ${snap.sha256}`,
+    `readiness-security: snapshot ${snap.digest}: ${snap.files} record files, ${maven} Maven records` +
+      `${snap.unreadable ? `, ${snap.unreadable} unreadable` : ""}, newest modified ${newest}`,
   );
-  if (env.OSV_MAVEN_SHA256 && env.OSV_MAVEN_SHA256 !== snap.sha256) {
-    say(`readiness-security: FAIL: the snapshot's sha256 is not OSV_MAVEN_SHA256 (${env.OSV_MAVEN_SHA256})`);
-    return 1;
+  const pin = env.OSV_MAVEN_SHA256 ? String(env.OSV_MAVEN_SHA256).trim().toLowerCase() : "";
+  if (pin) {
+    const want = pin.startsWith("sha256:") ? pin : `sha256:${pin}`;
+    if (!/^sha256:[0-9a-f]{64}$/.test(want)) {
+      say(`readiness-security: OSV_MAVEN_SHA256 '${env.OSV_MAVEN_SHA256}' is not a sha256 digest`);
+      return 2;
+    }
+    if (want !== snap.digest) {
+      say(`readiness-security: FAIL: the snapshot is ${snap.digest}, not the pinned ${want}`);
+      return 1;
+    }
+    say("readiness-security: the snapshot matches OSV_MAVEN_SHA256");
   }
   if (maven === 0) {
     say("readiness-security: the snapshot holds no Maven record; nothing judged");
@@ -177,31 +202,45 @@ export function run({ root = ROOT, env = process.env } = {}) {
   }
   const min = ORDER.indexOf(level);
   const worst = { critical: 0, high: 0, moderate: 0, low: 0 };
-  let vulnerable = 0;
-  const failing = [];
+  const found = [];
+  const skipped = [];
   for (const a of inv.maven) {
+    if (!a.version || a.version.includes("${")) {
+      skipped.push(`${a.group}:${a.artifact}`);
+      continue;
+    }
     const hits = match(idx, a.group, a.artifact, a.version);
     if (!hits.length) continue;
-    vulnerable++;
     worst[hits[0].level]++;
-    const line =
-      `- ${a.group}:${a.artifact}:${a.version} (${hits[0].level}; ${a.sources.join(", ")}): ` +
-      hits
-        .slice(0, 8)
-        .map((h) => `${h.id} ${h.level}${h.stated ? "" : " (no severity stated)"}`)
-        .join(", ") +
-      (hits.length > 8 ? ` and ${hits.length - 8} more` : "");
-    if (ORDER.indexOf(hits[0].level) >= min) failing.push(line);
-    else say(line);
+    found.push({ a, hits, rank: ORDER.indexOf(hits[0].level) });
   }
-  for (const l of failing) say(l);
+  if (skipped.length) say(`readiness-security: not matched, version not resolved: ${skipped.join(", ")}`);
+  // Below the level first, the worst last: the verdict keeps the end of the output.
+  found.sort((x, y) => x.rank - y.rank || y.hits.length - x.hits.length);
+  for (const { a, hits } of found) {
+    say(
+      `- ${a.group}:${a.artifact}:${a.version} (${hits[0].level}; ${a.sources.join(", ")}): ` +
+        hits
+          .slice(0, 8)
+          .map((h) => `${h.id} ${h.level}${h.stated ? "" : " (no severity stated)"}`)
+          .join(", ") +
+        (hits.length > 8 ? ` and ${hits.length - 8} more` : ""),
+    );
+  }
+  const failing = found.filter((f) => f.rank >= min).reverse();
   say(
-    `readiness-security: ${vulnerable} of ${inv.maven.length} artifacts have advisories ` +
+    `readiness-security: ${found.length} of ${inv.maven.length} artifacts have advisories ` +
       `(worst: ${worst.critical} critical, ${worst.high} high, ${worst.moderate} moderate, ${worst.low} low)`,
   );
+  if (failing.length) {
+    say(
+      `readiness-security: at ${level} or above, worst first: ` +
+        failing.map((f) => `${f.a.group}:${f.a.artifact}:${f.a.version} (${f.hits[0].level})`).join(", "),
+    );
+  }
   console.log(`release-readiness:figure advisory_critical ${worst.critical}`);
   console.log(`release-readiness:figure advisory_high ${worst.high}`);
-  console.log(`release-readiness:figure vulnerable_artifacts ${vulnerable}`);
+  console.log(`release-readiness:figure vulnerable_artifacts ${found.length}`);
   if (failing.length) {
     say(`readiness-security: FAIL: ${failing.length} artifact${failing.length === 1 ? "" : "s"} at ${level} or above`);
     return 1;

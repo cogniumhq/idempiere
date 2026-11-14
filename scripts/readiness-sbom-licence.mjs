@@ -11,16 +11,18 @@
 //      - p2 installable unit of the target platform (id, version, its repository);
 //      - entry of .loop/third-party.json (vendored, copied or generated paths: origin, version,
 //        licence as recorded, and the sha256 of every file it matches).
-//      No timestamp or random serial, so the same candidate always gives the same SBOM and sha256.
+//      No timestamp or random serial, so the same candidate (with the same local Maven
+//      repository, step 3) always gives the same SBOM and sha256.
 //      Written to SBOM_OUT when set; its sha256 is printed either way.
 //   2. Fails when a Maven version is not resolved (missing or still ${…}: the SBOM would be
 //      incomplete), when a third-party entry names no licence, or matches no file.
 //   3. Licences of the Maven artifacts are read from their POMs in a local Maven repository when
 //      one is there (MAVEN_REPO_LOCAL, else ~/.m2/repository): the review has no network, so a POM
-//      that is not there is counted as unknown, not fetched. A third-party licence recorded as
-//      "not stated …" is counted as unconfirmed. Neither fails: whether an unknown or unconfirmed
-//      licence blocks a release is the owner's call (a row of record with tolerance 0 on the
-//      figures below stops the counts from rising).
+//      that is not there is counted as unknown, not fetched. So the SBOM's licence fields and
+//      maven_licence_unknown depend on that repository (its path is printed). A third-party
+//      licence recorded as "not stated …" is counted as unconfirmed. Neither fails: whether an
+//      unknown or unconfirmed licence blocks a release is the owner's call (a row of record with
+//      tolerance 0 on the figures below stops the counts from rising).
 //
 // Prints: release-readiness:figure sbom_components <n>
 //         release-readiness:figure third_party_entries <n>
@@ -160,6 +162,8 @@ export function build({ root = ROOT, env = process.env } = {}) {
       thirdParty: manifest.entries.length,
       unconfirmed,
       licenceUnknown,
+      repo,
+      repoPresent: existsSync(repo),
     },
   };
 }
@@ -182,7 +186,8 @@ export function run({ root = ROOT, env = process.env } = {}) {
   );
   say(
     `readiness-sbom-licence: licences: ${counts.unconfirmed} third-party entries "not stated" (unconfirmed); ` +
-      `${counts.licenceUnknown} of ${counts.maven} Maven artifacts with no licence read (no POM in the local Maven repository)`,
+      `${counts.licenceUnknown} of ${counts.maven} Maven artifacts with no licence read (no POM in ${counts.repo}` +
+      `${counts.repoPresent ? "" : ", which is not there"})`,
   );
   for (const p of problems) say(`- ${p}`);
   console.log(`release-readiness:figure sbom_components ${sbom.components.length}`);

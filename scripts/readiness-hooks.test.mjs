@@ -7,7 +7,7 @@ import { dirname, join, resolve } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { compareMaven, inventory, readArtifactItems, readTarget } from "./readiness-java-deps.mjs";
-import { inRange, indexMaven, match, run as security } from "./readiness-security.mjs";
+import { inRange, indexMaven, match, readSnapshot, run as security } from "./readiness-security.mjs";
 import { build, globToRegExp, run as sbomLicence } from "./readiness-sbom-licence.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -111,33 +111,77 @@ test("security: abstains without a snapshot, or with no Maven record", (t) => {
   assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: join(empty, "missing") } })).code, 3);
 });
 
-test("security: fails at the level, passes below it, names the snapshot, checks its pin", (t) => {
+test("security: snapshot identity is sha256 over sorted \"<name>\\0<sha256>\\n\" lines, flat *.json only", (t) => {
   const dir = tmp(t);
-  mkdirSync(join(dir, "Maven"));
+  writeFileSync(join(dir, "GHSA-b.json"), '{"id":"GHSA-b","modified":"2026-11-01T00:00:00Z"}');
+  writeFileSync(join(dir, "GHSA-a.json"), '{"id":"GHSA-a","modified":"2026-11-02T00:00:00Z"}');
+  writeFileSync(join(dir, "PROVENANCE"), "not part of the identity");
+  mkdirSync(join(dir, "sub"));
+  writeFileSync(join(dir, "sub", "X.json"), '{"id":"X"}');
+  // Computed independently: (for n in GHSA-a.json GHSA-b.json; do printf '%s\0%s\n' "$n" "$(sha256sum "$n" | cut -d' ' -f1)"; done) | sha256sum
+  const snap = readSnapshot(dir);
+  assert.equal(snap.digest, "sha256:5b857ffe7588fe871899fb6df24ffcc803ba6c7d2d9c6ea8c171ac1cb46c4432");
+  assert.equal(snap.files, 2);
+  assert.deepEqual(snap.records.map((r) => r.id), ["GHSA-b", "GHSA-a"].sort());
+  mkdirSync(join(dir, "odd.json"));
+  assert.throws(() => readSnapshot(dir), /odd\.json is not a regular file/);
+  assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir } })).code, 3);
+});
+
+test("security: fails at the level, passes below it, checks its pin with or without sha256:", (t) => {
+  const dir = tmp(t);
   const rec = (sev) => ({
     id: "GHSA-test-guava",
     modified: "2026-11-06T00:00:00Z",
-    summary: "release-readiness:figure advisory_high 0",
     database_specific: { severity: sev },
     affected: [{ package: { ecosystem: "Maven", name: "com.google.guava:guava" }, ranges: [{ type: "ECOSYSTEM", events: [{ introduced: "0" }, { fixed: "99.0" }] }] }],
   });
-  writeFileSync(join(dir, "Maven", "GHSA-test-guava.json"), JSON.stringify(rec("HIGH")));
+  const crit = {
+    id: "GHSA-test-gson",
+    database_specific: { severity: "CRITICAL" },
+    affected: [{ package: { ecosystem: "Maven", name: "com.google.code.gson:gson" }, versions: ["2.9.0"] }],
+  };
+  writeFileSync(join(dir, "GHSA-test-guava.json"), JSON.stringify(rec("HIGH")));
+  writeFileSync(join(dir, "GHSA-test-gson.json"), JSON.stringify(crit));
   const high = quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir } }));
   assert.equal(high.code, 1);
-  assert.ok(high.lines.some((l) => l.startsWith("- com.google.guava:guava:33.4.8-jre (high;")));
+  assert.ok(high.lines.includes("release-readiness:figure advisory_critical 1"));
   assert.ok(high.lines.includes("release-readiness:figure advisory_high 1"));
-  assert.ok(high.lines.includes("release-readiness:figure vulnerable_artifacts 1"));
-  const sum = high.lines.find((l) => l.includes(" sha256 ")).split(" sha256 ")[1];
-  assert.match(sum, /^[0-9a-f]{64}$/);
-  assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, OSV_MAVEN_SHA256: sum } })).code, 1);
+  assert.ok(high.lines.includes("release-readiness:figure vulnerable_artifacts 2"));
+  const items = high.lines.filter((l) => l.startsWith("- "));
+  assert.ok(items[0].startsWith("- com.google.guava:guava:33.4.8-jre (high;") && items[1].startsWith("- com.google.code.gson:gson:2.9.0 (critical;"), "worst last");
+  const worstFirst = high.lines.find((l) => l.includes("worst first:"));
+  assert.ok(worstFirst.indexOf("gson") < worstFirst.indexOf("guava"), worstFirst);
+  const digest = readSnapshot(dir).digest;
+  assert.ok(high.lines.some((l) => l.includes(`snapshot ${digest}:`)));
   assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, OSV_MAVEN_SHA256: "0".repeat(64) } })).code, 1);
-  assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, SECURITY_LEVEL: "critical" } })).code, 0);
-  writeFileSync(join(dir, "Maven", "GHSA-test-guava.json"), JSON.stringify(rec("MODERATE")));
-  const mod = quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir } }));
-  assert.equal(mod.code, 0);
-  assert.ok(mod.lines.includes("release-readiness:figure advisory_high 0"));
-  assert.ok(mod.lines.includes("release-readiness:figure vulnerable_artifacts 1"));
+  assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, OSV_MAVEN_SHA256: "nope" } })).code, 2);
   assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, SECURITY_LEVEL: "nope" } })).code, 2);
+  // Below the level, with the right pin in both spellings: pass.
+  writeFileSync(join(dir, "GHSA-test-guava.json"), JSON.stringify(rec("MODERATE")));
+  rmSync(join(dir, "GHSA-test-gson.json"));
+  const pin = readSnapshot(dir).digest;
+  for (const p of [pin, pin.slice("sha256:".length)]) {
+    const ok = quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, OSV_MAVEN_SHA256: p } }));
+    assert.equal(ok.code, 0, ok.lines.join("\n"));
+    assert.ok(ok.lines.includes("readiness-security: the snapshot matches OSV_MAVEN_SHA256"));
+    assert.ok(ok.lines.includes("release-readiness:figure advisory_high 0"));
+    assert.ok(ok.lines.includes("release-readiness:figure vulnerable_artifacts 1"));
+  }
+  assert.equal(quiet(() => security({ root: ROOT, env: { OSV_MAVEN_DIR: dir, SECURITY_LEVEL: "moderate" } })).code, 1);
+});
+
+test("security: an unresolved version is skipped and named, never matched", (t) => {
+  const root = tmp(t);
+  mkdirSync(join(root, "bundle"));
+  writeFileSync(join(root, "bundle", "pom.xml"), "<project><artifactItem><groupId>g</groupId><artifactId>a</artifactId><version>${nobody}</version></artifactItem></project>");
+  const dir = join(root, "osv");
+  mkdirSync(dir);
+  writeFileSync(join(dir, "GHSA-all.json"), JSON.stringify({ id: "GHSA-all", database_specific: { severity: "CRITICAL" }, affected: [{ package: { ecosystem: "Maven", name: "g:a" }, ranges: [{ type: "ECOSYSTEM", events: [{ introduced: "0" }] }] }] }));
+  const out = quiet(() => security({ root, env: { OSV_MAVEN_DIR: dir } }));
+  assert.equal(out.code, 0, out.lines.join("\n"));
+  assert.ok(out.lines.includes("readiness-security: not matched, version not resolved: g:a"));
+  assert.ok(out.lines.includes("release-readiness:figure vulnerable_artifacts 0"));
 });
 
 test("sbom-licence: passes on this tree, deterministic, counts the third-party manifest", () => {
