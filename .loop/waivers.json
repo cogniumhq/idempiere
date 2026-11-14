@@ -1,0 +1,4 @@
+{
+  "about": "Waivers for the release-readiness review (release-readiness skill 0.4.3, SKILL.md §5; fork-local, never upstream): each turns one named failing check into \"waived\". Fields: check (the check id from the verdict), who, why, until (YYYY-MM-DD), answer (an https link to the person's own answer to the waiver question), confirm (the check whose pass closes it), optional tag (one candidate only). A waiver past until, for another tag or missing a field is ignored and reported; a who that is an agent never counts, and an open waiver blocks a final release. Written only by a person, in a PR approved by someone else; an agent never writes, extends or re-words one.",
+  "waivers": []
+}

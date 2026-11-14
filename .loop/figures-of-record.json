@@ -1,0 +1,13 @@
+{
+  "about": "Figures of record for the release-readiness review (release-readiness skill 0.4.3, SKILL.md §2 and §2a; fork-local, never upstream). One row per check and metric. A row is of record only with value, version, date and method; until then it says \"status\": \"no record yet\" and the review abstains on it (never passes). The row below names the goal in .loop/benchmarks.json (goal:gardenworld/default): once of record, a candidate that does not report the figure, or reports a worse one beyond tolerance, fails the review whatever the goal's mode. A row becomes of record only with a figure measured on master by the goal's own command, in a PR approved by someone other than its author; the review never edits this file.",
+  "records": [
+    {
+      "check": "goal:gardenworld/default",
+      "metric": "tests_passed",
+      "kind": "count",
+      "direction": "higher",
+      "status": "no record yet",
+      "note": "Measured, not of record: 1,566 pass, 0 failure, 0 error (165 classes, Tycho surefire default includes) on upstream bd4f848, whose tree master b7cc5ce keeps except .specifica/cognium/subject.yaml; jdk-tycho image against the GardenWorld fixture, 616 s (techspec tracks/execution/records/idempiere-rung2-image-2026-11-11.md; the same count on the host, idempiere-to-latest-tests-1112.md). Not recorded here because no Loop job sets up that database yet, so the goal's command cannot report the figure on a candidate."
+    }
+  ]
+}

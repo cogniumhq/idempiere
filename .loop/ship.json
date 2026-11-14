@@ -1,0 +1,30 @@
+{
+  "schema": "loop-ship/0.1",
+  "ci": {
+    "toolchain": "ghcr.io/cogniumhq/build-test/jdk-tycho@sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "commands": [
+      {
+        "id": "tools",
+        "argv": ["bash", "-c", "java -version && mvn -v"],
+        "phase": "setup",
+        "timeout_seconds": 60
+      },
+      {
+        "id": "resolve",
+        "argv": ["mvn", "-B", "-ntp", "-DmaterializeProduct=none", "-DassembleRepository=none", "-DskipTests", "verify"],
+        "phase": "setup",
+        "timeout_seconds": 1200
+      },
+      {
+        "id": "verify",
+        "argv": ["mvn", "-B", "-ntp", "-DmaterializeProduct=none", "-DassembleRepository=none", "-DskipTests", "verify"],
+        "timeout_seconds": 1200
+      }
+    ],
+    "max_wall_seconds": 2700,
+    "egress": {
+      "setup": ["maven-central", "eclipse-p2", "idempiere-p2", "idempiere-binary"],
+      "run": ["maven-central.replay", "eclipse-p2.replay", "idempiere-p2.replay", "idempiere-binary.replay"]
+    }
+  }
+}
