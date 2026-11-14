@@ -26,5 +26,8 @@
       "setup": ["maven-central", "eclipse-p2", "idempiere-p2", "idempiere-binary"],
       "run": ["maven-central.replay", "eclipse-p2.replay", "idempiere-p2.replay", "idempiere-binary.replay"]
     }
+  },
+  "branch_check": {
+    "argv": ["env", "BRANCH_CHECK_BASE=master", "bash", "scripts/branch-check.sh", "--base", "refs/heads/{base_ref}", "refs/heads/{head_ref}"]
   }
 }
