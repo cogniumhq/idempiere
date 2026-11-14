@@ -1,0 +1,73 @@
+# Third-party and generated paths (fork-local: cogniumhq/idempiere, never sent upstream).
+# Same paths as .loop/third-party.json, which says why each is listed; human-readable copy: THIRD_PARTY.md.
+# linguist-vendored keeps them out of GitHub's language statistics, collapses them in diffs, and marks them
+# third-party for the Loop; generated paths also carry linguist-generated. These are linguist attributes only:
+# they change nothing in git's checkout, diff or merge behaviour.
+
+# Vendored, copied or third-party
+org.adempiere.ui.zk/WEB-INF/src/web/js/pdf.js/** linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/html2canvaspro/html2canvaspro*.js linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/jquery/maskedinput/jquery.maskedinput.js linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/photobooth/photobooth_min.js linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/chosenbox/** linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/org/zkoss/addon/chosenbox/Chosenbox.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/org/zkoss/addon/chosenbox/Version.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/zkforge/keylistener/** linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/org/zkforge/keylistener/Keylistener.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/org/zkforge/keylistener/Version.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/web/js/jawwa/** linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/fi/jawsy/jawwa/zk/atmosphere/AtmosphereServerPush.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/fi/jawsy/jawwa/zk/atmosphere/ZkAtmosphereHandler.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/name/fraser/neil/plaintext/diff_match_patch.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/xsd/zul.xsd linguist-vendored
+org.adempiere.ui.zk/html/Credits_files/bootstrap.min.css linguist-vendored
+org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/billboard.js linguist-vendored
+org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/billboard.src.js linguist-vendored
+org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/d3.v6.js linguist-vendored
+org.idempiere.zk.billboard/src/web/js/zul/billboard/ext/d3.v6.src.js linguist-vendored
+org.idempiere.zk.billboard/src/web/js/zul/billboard/css/billboard.css linguist-vendored
+org.idempiere.zk.datatable/src/web/js/datatables/datatables.* linguist-vendored
+org.idempiere.zk.datatable/src/web/js/datatables/i18n/** linguist-vendored
+org.idempiere.zk.datatable/src/web/js/datatables/images/** linguist-vendored
+org.idempiere.zk.pivot/src/web/js/pivot/** linguist-vendored
+org.adempiere.server/resources/bootstrap/** linguist-vendored
+org.adempiere.server/resources/jquery/jquery.js linguist-vendored
+org.apache.ecs/src/** linguist-vendored
+org.adempiere.base/src/org/krysalis/** linguist-vendored
+org.idempiere.keikai/src/io/keikai/ui/au/in/TextHeightCommand.java linguist-vendored
+org.adempiere.ui.zk/WEB-INF/src/org/adempiere/webui/util/ReaderInputStream.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/Activator.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/BridgeFilter.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/BridgeServlet.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/DefaultHttpContext.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/FilterConfigImpl.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpServiceImpl.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpServletRequestAdaptor.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/HttpSessionAdaptor.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ProxyContext.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ProxyServlet.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/Registration.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/RequestDispatcherAdaptor.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ResourceServlet.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletConfigImpl.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletContextAdaptor.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/src/org/adempiere/eclipse/equinox/http/servlet/ServletRegistration.java linguist-vendored
+org.adempiere.eclipse.equinox.http.servlet/about.html linguist-vendored
+mvnw linguist-vendored
+mvnw.cmd linguist-vendored
+org.adempiere.server-feature/utils.windows/windows/idempiereService.exe linguist-vendored
+org.adempiere.server-feature/utils.windows/windows/license.txt linguist-vendored
+org.adempiere.report.jasper.library/META-INF/spring.handlers linguist-vendored
+org.adempiere.report.jasper.library/META-INF/spring.schemas linguist-vendored
+
+# Generated (regenerate from the source, never edit by hand)
+org.adempiere.base/src/org/compiere/model/X_*.java linguist-vendored linguist-generated
+org.adempiere.base/src/org/compiere/model/I_*_*.java linguist-vendored linguist-generated
+org.adempiere.base/src/org/compiere/model/I_Test*.java linguist-vendored linguist-generated
+org.adempiere.base/src/org/eevolution/model/[IX]_*.java linguist-vendored linguist-generated
+org.idempiere.acct/src/org/idempiere/acct/base/model/[IX]_*.java linguist-vendored linguist-generated
+org.adempiere.base/src/org/idempiere/expression/logic/SimpleBoolean* linguist-vendored linguist-generated
+org.adempiere.report.jasper/doc/**/*.html linguist-vendored linguist-generated
+org.adempiere.report.jasper/doc/package-list linguist-vendored linguist-generated
+org.adempiere.report.jasper/doc/stylesheet.css linguist-vendored linguist-generated
+org.adempiere.report.jasper/doc/resources/** linguist-vendored linguist-generated
