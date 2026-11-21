@@ -4,13 +4,13 @@
 	<location includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpg-jdk18on</artifactId>
-      <version>1.81</version>
+      <version>1.86</version>
       <type>jar</type>
 	</location>
 	<location includeDependencyScope="compile" includeSource="true" missingManifest="generate" type="Maven">
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcmail-jdk18on</artifactId>
-      <version>1.81</version>
+      <version>1.86</version>
       <type>jar</type>
 	</location>
 </locations>
